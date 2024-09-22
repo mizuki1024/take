@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スクロールで動きのあるサイト</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/scrollreveal"></script> <!-- ScrollReveal.jsの読み込み -->
+</head>
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="#">トップ</a></li>
+            <li><a href="#">キャンプ場の魅力</a></li>
+            <li><a href="#">竹の自然</a></li>
+            <li><a href="#">施設紹介</a></li>
+            <li><a href="yoyaku.html">ご予約</a></li>
+            <li><a href="#">アクセス</a></li>
+            <li><a href="#">お問い合わせ</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="overlay">
+        <h1></h1>
+        <p>自然の中で、竹に囲まれた静かなキャンプ体験を。</p>
+    </div>
+</section>
+
+<section class="intro">
+    <h2>竹のキャンプ場とは？</h2>
+    <p>私たちのキャンプ場は、竹林の中に位置し、豊かな自然と静寂が特徴です。</p>
+</section>
+
+<section class="feature">
+    <h2>特徴</h2>
+    <div class="feature-item" id="feature1">
+        <h3>静寂な環境</h3>
+        <img src="bomboo-leaf.png" alt="竹の葉">
+        <p>自然に囲まれ、リラックスできる静かな空間を提供します。</p>
+    </div>
+    <div class="feature-item" id="feature2">
+        <h3>豊かな自然</h3>
+        <img src="bomboo-leaf.png" alt="竹の葉">
+        <p>四季折々の自然を楽しむことができます。</p>
+    </div>
+    <div class="feature-item" id="feature3">
+        <h3>充実の設備</h3>
+        <img src="bomboo-leaf.png" alt="竹の葉">
+        <p>バーベキュー施設や温泉など、様々な設備が整っています。</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 竹のキャンプ場. All Rights Reserved.</p>
+</footer>
+
+<script>
+    // ScrollRevealを使って要素にアニメーションを追加
+    ScrollReveal().reveal('.intro', { duration: 2000, origin: 'bottom', distance: '50px' });
+    ScrollReveal().reveal('#feature1', { duration: 2000, origin: 'left', distance: '100px' });
+    ScrollReveal().reveal('#feature2', { duration: 2000, origin: 'right', distance: '100px' });
+    ScrollReveal().reveal('#feature3', { duration: 2000, origin: 'bottom', distance: '50px' });
+</script>
+
+</body>
+</html>
