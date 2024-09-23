@@ -1,69 +1,61 @@
-body {
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f4f3;
-}
-
-header {
-    background-color: #53ab3f; /* 緑色のナビゲーション */
-    padding: 15px;
-    text-align: center;
-}
-
-header nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-header nav ul li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-header nav ul li a {
-    text-decoration: none;
-    color: white;
+/* Reservation Button */
+.reservation-btn {
     font-weight: bold;
     font-size: 18px;
-}
-
-.hero {
-    background: url('home.jpg') no-repeat center center;
-    background-size: cover;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 10px 25px;
+    background-color: transparent;
+    border: 2px solid white;
     color: white;
-    text-align: center;
+    border-radius: 50px;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.overlay {
-    background: url('take.png') no-repeat center center;
-    
-    padding: 20px;
-    border-radius: 10px;
+.reservation-btn:hover {
+    background-color: white;
+    color: #186018;
 }
 
-.intro, .feature {
-    padding: 50px;
-    text-align: center;
-}
-
-.feature {
-    background-color: #fff;
-}
-
-.feature-item {
-    margin: 20px 0;
-}
-
-footer {
-    background-color: #3b5323;
+.reservation-btn::before {
+    content: "Reservation";
+    font-size: 12px;
+    position: absolute;
+    top: -15px;
+    left: 0%;
+    transform: translateX(-50%);
     color: white;
-    text-align: center;
-    padding: 20px 0;
+}
+
+.reservation-btn::after {
+    content: '\003E'; /* Arrow symbol */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: white;
+}
+.img {
+    display: block; /* インライン要素のデフォルトの余白を消す */
+    margin: 0; /* 外側の余白をゼロに設定 */
+    padding: 0; /* 内側の余白をゼロに設定 */
+    border: none; /* ボーダーがある場合は消す */
+    width: 100%; /* 画像を親要素の幅に合わせて拡大 */
+    height: auto; /* アスペクト比を保ちながら高さを自動調整 */
+}
+
+.no-margin-padding {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: none;
+    width: 100%; /* 画像を親要素の幅に合わせて拡大 */
+    height: auto; /* アスペクト比を保ちながら高さを自動調整 */
+}
+/* モバイル対応のためのメディアクエリ */
+@media (max-width: 768px) {
+    .hero {
+        background-position: top center; /* モバイル画面でも上部に画像を表示 */
+        height: 100vh; /* モバイルでも全画面に表示 */
+    }
 }

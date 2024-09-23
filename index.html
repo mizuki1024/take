@@ -1,69 +1,412 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スクロールで動きのあるサイト</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/scrollreveal"></script> <!-- ScrollReveal.jsの読み込み -->
+    <title>竹のキャンプ場</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'EB Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        /* ヘッダーのスタイル */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            z-index: 1000;
+            color: white;
+        }
+
+        .logo img {
+            width: 80px;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+        }
+
+        /* ハンバーガーメニューボタンのスタイル */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 100%;
+            height: 4px;
+            background-color: white;
+        }
+
+        /* 小画面用のナビゲーションスタイル */
+        @media (max-width: 768px) {
+            .nav-list {
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.9);
+                text-align: center;
+                display: none;
+            }
+
+            .nav-list.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+        }
+
+        /* メインの画像スライダーのスタイル */
+        .main-banner {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .main-banner img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1);
+            transition: opacity 1s ease, transform 8s ease;
+        }
+
+        .main-banner img.active {
+            opacity: 1;
+            transform: scale(1.2); /* 画像が徐々に拡大 */
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .main-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.5s ease forwards;
+        }
+
+        .main-content h1 {
+            font-size: 48px;
+            margin: 0;
+        }
+
+        .main-content p {
+            font-size: 18px;
+            margin: 10px 0 20px 0;
+        }
+
+        .reservation-btn {
+            padding: 10px 20px;
+            border: 2px solid white;
+            background-color: transparent;
+            color: white;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .reservation-btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* スクロール後に表示されるセクション */
+        .scroll-section {
+            padding: 100px 50px;
+            background-image: url('bamboo-forest.jpg'); /* 背景画像の追加 */
+            background-size: cover; /* 画像がコンテナにフィット */
+            background-position: center; /* 画像を中央に配置 */
+            color: white;
+            text-align: left;
+            position: relative;
+        }
+
+        .scroll-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒でオーバーレイ */
+            z-index: 1;
+        }
+
+        .scroll-section h2, .scroll-section p, .scroll-section a {
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .scroll-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .scroll-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #bbb;
+        }
+
+        .scroll-section a {
+            color: #ddd;
+            text-decoration: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .scroll-section a:hover {
+            color: white;
+            border-bottom: 1px solid white;
+        }
+
+        /* 3セクション目のスタイル */
+        .third-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 50px;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .image-text-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .left-image {
+            width: 40%;
+            object-fit: cover;
+        }
+
+        .text-content {
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1.5s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .text-content h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .text-content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .text-content a {
+            color: #333;
+            text-decoration: none;
+            border-bottom: 1px solid #333;
+        }
+
+        .text-content a:hover {
+            color: black;
+            border-bottom: 1px solid black;
+        }
+
+        /* 4セクション目のスタイル */
+        .fourth-section {
+            padding: 100px 50px;
+            background-color: #e0e0e0;
+            color: #333;
+            text-align: center;
+        }
+
+        .fourth-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .fourth-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .fourth-section .facility-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .fourth-section .facility {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+
+        .fourth-section img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* フェードアップアニメーション */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
 
+<!-- ヘッダー -->
 <header>
-    <nav>
-        <ul>
-            <li><a href="#">トップ</a></li>
-            <li><a href="#">キャンプ場の魅力</a></li>
-            <li><a href="#">竹の自然</a></li>
-            <li><a href="#">施設紹介</a></li>
-            <li><a href="yoyaku.html">ご予約</a></li>
-            <li><a href="#">アクセス</a></li>
-            <li><a href="#">お問い合わせ</a></li>
-        </ul>
-    </nav>
+    <div class="logo">
+        <img src="logo.png" alt="Logo">
+    </div>
+    <div class="hamburger" id="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    
+    <ul class="nav-list" id="nav-list">
+        <li><a href="#">自然</a></li>
+        <li><a href="#">宿泊</a></li>
+        <li><a href="#">体験</a></li>
+        <li><a href="#">日本語</a></li>
+        <div class="hamburger" id="hamburger">
+            <div></div>
+        </div>
+
+    </ul>
 </header>
 
-<section class="hero">
-    <div class="overlay">
-        <h1></h1>
-        <p>自然の中で、竹に囲まれた静かなキャンプ体験を。</p>
-    </div>
-</section>
+<!-- メインバナー -->
+<div class="main-banner">
+    <img src="bamboo-camp.jpg" class="active" alt="竹のキャンプ場">
+    <img src="bamboo-camp-2.jpg" alt="竹に囲まれたキャンプサイト">
+    <img src="bamboo-camp-3.jpg" alt="静かな竹林の景色">
 
-<section class="intro">
-    <h2>竹のキャンプ場とは？</h2>
-    <p>私たちのキャンプ場は、竹林の中に位置し、豊かな自然と静寂が特徴です。</p>
-</section>
+    <div class="overlay"></div>
+    <div class="main-content">
+        <h1>竹に囲まれた癒しのキャンプ場</h1>
+        <p>豊かな自然に包まれた、静かな竹のキャンプ場でリラックスした時間を過ごしてください。</p>
+        <a href="#" class="reservation-btn">予約する</a>
+    </div>
+</div>
 
-<section class="feature">
-    <h2>特徴</h2>
-    <div class="feature-item" id="feature1">
-        <h3>静寂な環境</h3>
-        <img src="bomboo-leaf.png" alt="竹の葉">
-        <p>自然に囲まれ、リラックスできる静かな空間を提供します。</p>
-    </div>
-    <div class="feature-item" id="feature2">
-        <h3>豊かな自然</h3>
-        <img src="bomboo-leaf.png" alt="竹の葉">
-        <p>四季折々の自然を楽しむことができます。</p>
-    </div>
-    <div class="feature-item" id="feature3">
-        <h3>充実の設備</h3>
-        <img src="bomboo-leaf.png" alt="竹の葉">
-        <p>バーベキュー施設や温泉など、様々な設備が整っています。</p>
-    </div>
-</section>
+<!-- スクロール後に表示されるセクション -->
+<div class="scroll-section">
+    <h2>竹林に癒されるキャンプ体験</h2>
+    <p>
+        私たちの竹のキャンプ場は、風にそよぐ竹の音と、澄んだ空気が広がる自然の中で、心身をリフレッシュさせる場所です。都市の喧騒から離れて、自然と調和した特別な時間をお楽しみください。
+    </p>
+    <p>
+        緑豊かな竹林の中で、焚き火を囲んだり、自然の美しさを感じながら静かなひとときを過ごせます。
+    </p>
+    <a href="#">竹のキャンプ場について &gt;</a>
+</div>
 
-<footer>
-    <p>&copy; 2024 竹のキャンプ場. All Rights Reserved.</p>
-</footer>
+<!-- 3セクション目 -->
+<div class="third-section">
+    <div class="image-text-container">
+        <img src="background-image.jpg" alt="竹林での体験" class="left-image">
+        <div class="text-content">
+            <h2>自然と触れ合う特別な時間</h2>
+            <p>
+                竹林の中でのキャンプは、日常から離れて自然の美しさと静けさを感じることができる特別な体験です。澄んだ空気と自然の音に包まれて、心も体もリラックスできます。
+            </p>
+            <a href="#">詳しくはこちら &gt;</a>
+        </div>
+    </div>
+</div>
+
+<!-- 4セクション目（設備について） -->
+<div class="fourth-section">
+    <h2>キャンプ場の設備</h2>
+    <p>竹に囲まれた当キャンプ場では、自然の美しさを楽しむだけでなく、快適なキャンプライフを送るための設備も充実しています。家族や友人と一緒に過ごすのに最適な環境が整っています。</p>
+
+    <div class="facility-list">
+        <div class="facility">
+            <img src="image2.jpg" alt="キャンプ場のシャワー施設">
+            <p>シャワー施設：清潔で快適なシャワー施設を完備。キャンプ中でもリフレッシュできます。</p>
+        </div>
+        <div class="facility">
+            <img src="image1.jpg" alt="キャンプ場の焚き火エリア">
+            <p>焚き火エリア：自然の中で焚き火を囲んでリラックスした時間を過ごせます。</p>
+        </div>
+    </div>
+</div>
 
 <script>
-    // ScrollRevealを使って要素にアニメーションを追加
-    ScrollReveal().reveal('.intro', { duration: 2000, origin: 'bottom', distance: '50px' });
-    ScrollReveal().reveal('#feature1', { duration: 2000, origin: 'left', distance: '100px' });
-    ScrollReveal().reveal('#feature2', { duration: 2000, origin: 'right', distance: '100px' });
-    ScrollReveal().reveal('#feature3', { duration: 2000, origin: 'bottom', distance: '50px' });
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.main-banner img');
+    const imageCount = images.length;
+
+    function switchImage() {
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % imageCount;
+        images[currentIndex].classList.add('active');
+    }
+
+    // 8秒ごとに画像を切り替え
+    setInterval(switchImage, 8000);
+
+    // ハンバーガーメニューのクリックイベント
+    const hamburger = document.getElementById('hamburger');
+    const navList = document.getElementById('nav-list');
+
+    hamburger.addEventListener('click', () => {
+        navList.classList.toggle('active');
+    });
 </script>
 
 </body>
