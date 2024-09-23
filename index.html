@@ -128,11 +128,13 @@
         .main-content h1 {
             font-size: 48px;
             margin: 0;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .main-content p {
             font-size: 18px;
             margin: 10px 0 20px 0;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .reservation-btn {
@@ -154,7 +156,7 @@
         /* スクロール後に表示されるセクション */
         .scroll-section {
             padding: 100px 50px;
-            background-image: url('bamboo-forest.jpg'); /* 背景画像の追加 */
+            background-image: url('tento_yoru.jpg'); /* 背景画像の追加 */
             background-size: cover; /* 画像がコンテナにフィット */
             background-position: center; /* 画像を中央に配置 */
             color: white;
@@ -171,6 +173,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒でオーバーレイ */
             z-index: 1;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .scroll-section h2, .scroll-section p, .scroll-section a {
@@ -186,18 +189,21 @@
             font-size: 36px;
             margin-bottom: 20px;
             color: #ddd;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .scroll-section p {
             font-size: 18px;
             line-height: 1.6;
             color: #bbb;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .scroll-section a {
             color: #ddd;
             text-decoration: none;
             border-bottom: 1px solid #ddd;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .scroll-section a:hover {
@@ -232,23 +238,27 @@
             transform: translateY(20px);
             animation: fadeUp 1.5s ease forwards;
             animation-delay: 0.5s;
+
         }
 
         .text-content h2 {
             font-size: 32px;
             margin-bottom: 20px;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .text-content p {
             font-size: 18px;
             line-height: 1.6;
             margin-bottom: 20px;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .text-content a {
             color: #333;
             text-decoration: none;
             border-bottom: 1px solid #333;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .text-content a:hover {
@@ -267,12 +277,14 @@
         .fourth-section h2 {
             font-size: 36px;
             margin-bottom: 30px;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .fourth-section p {
             font-size: 18px;
             line-height: 1.8;
             margin-bottom: 40px;
+            animation: fadeUp 1.5s ease forwards;
         }
 
         .fourth-section .facility-list {
@@ -287,6 +299,43 @@
         }
 
         .fourth-section img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* 5セクション目のスタイル */
+        .fifth-section {
+            padding: 100px 50px;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+        }
+
+        .fifth-section h2 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            animation: fadeUp 1.5s ease forwards;
+        }
+
+        .fifth-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            animation: fadeUp 1.5s ease forwards;
+        }
+
+        .fifth-section .activity-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .fifth-section .activity {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+
+        .fifth-section img {
             width: 100%;
             border-radius: 10px;
         }
@@ -331,15 +380,15 @@
 
 <!-- メインバナー -->
 <div class="main-banner">
-    <img src="bamboo-camp.jpg" class="active" alt="竹のキャンプ場">
-    <img src="bamboo-camp-2.jpg" alt="竹に囲まれたキャンプサイト">
-    <img src="bamboo-camp-3.jpg" alt="静かな竹林の景色">
+    <img src="take_akari.jpg" class="active" alt="竹のキャンプ場">
+    <img src="take_yomichi.jpg" alt="竹に囲まれたキャンプサイト">
+    <img src="tento_yoru.jpg" alt="静かな竹林の景色">
 
     <div class="overlay"></div>
     <div class="main-content">
         <h1>竹に囲まれた癒しのキャンプ場</h1>
         <p>豊かな自然に包まれた、静かな竹のキャンプ場でリラックスした時間を過ごしてください。</p>
-        <a href="#" class="reservation-btn">予約する</a>
+        <a href="yoyaku.html" class="reservation-btn">予約する</a>
     </div>
 </div>
 
@@ -358,7 +407,7 @@
 <!-- 3セクション目 -->
 <div class="third-section">
     <div class="image-text-container">
-        <img src="background-image.jpg" alt="竹林での体験" class="left-image">
+        <img src="take_osake.jpg" alt="竹林での体験" class="left-image">
         <div class="text-content">
             <h2>自然と触れ合う特別な時間</h2>
             <p>
@@ -376,17 +425,35 @@
 
     <div class="facility-list">
         <div class="facility">
-            <img src="image2.jpg" alt="キャンプ場のシャワー施設">
+            <img src="take_onsen.jpg" alt="キャンプ場のシャワー施設">
             <p>シャワー施設：清潔で快適なシャワー施設を完備。キャンプ中でもリフレッシュできます。</p>
         </div>
         <div class="facility">
-            <img src="image1.jpg" alt="キャンプ場の焚き火エリア">
+            <img src="takibi.jpg" alt="キャンプ場の焚き火エリア">
             <p>焚き火エリア：自然の中で焚き火を囲んでリラックスした時間を過ごせます。</p>
         </div>
     </div>
 </div>
 
+<!-- 5セクション目（アクティビティについて） -->
+<div class="fifth-section">
+    <h2>竹林での特別な体験</h2>
+    <p>竹のキャンプ場では、自然と触れ合い、竹にまつわるさまざまなアクティビティを楽しむことができます。家族や友人とともに、特別な思い出を作ってください。</p>
+
+    <div class="activity-list">
+        <div class="activity">
+            <img src="takezaiku1.jpg" alt="竹細工の体験">
+            <p>竹細工体験：竹を使って手作りの小物やアートを作るワークショップ。自然の素材に触れながら、創造的なひとときを過ごせます。</p>
+        </div>
+        <div class="activity">
+            <img src="take_sinrinyoku.jpg" alt="森林浴の体験">
+            <p>森林浴：竹林の中で、深呼吸をしながら自然と一体になるひととき。日常の疲れを癒し、心と体のバランスを取り戻します。</p>
+        </div>
+    </div>
+</div>
+
 <script>
+    
     let currentIndex = 0;
     const images = document.querySelectorAll('.main-banner img');
     const imageCount = images.length;

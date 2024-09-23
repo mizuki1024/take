@@ -1,148 +1,173 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="jp">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約ページ</title>
+    <title>竹のキャンプ場 予約フォーム</title>
     <style>
-        @keyframes fall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        body {
+            margin: 0;
+            font-family: 'EB Garamond', serif;
+            background-color: #f4f4f4;
+            padding: 50px;
         }
 
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: url('C:/Users/mizuk/Downloads/images.jpg') no-repeat center center fixed; /* 竹のキャンプ場の夜の背景画像 */
-            background-size: cover;
-            color: #fff; /* テキストの色を白に設定 */
-            overflow: hidden; /* アニメーションが画面外に出ないようにする */
-            position: relative;
-        }
-        .reservation-form {
-            background-color: rgba(255, 255, 255, 0.8); /* 背景を半透明の白にする */
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-            width: 400px;
-            animation: fadeIn 1s ease-out;
-            color: #333;
-            position: relative;
-            z-index: 1;
-        }
-        .reservation-form h2 {
-            margin-bottom: 20px;
-            color: #4caf50;
+        h1 {
             text-align: center;
+            font-size: 36px;
+            color: #333;
         }
-        .form-group {
-            margin-bottom: 20px;
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
-        .form-group label {
+
+        label {
             display: block;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 8px;
             color: #333;
-            font-size: 16px;
         }
-        .form-group input, .form-group select {
+
+        input, textarea, select {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             font-size: 16px;
-            background-color: #fff;
-            color: #333;
         }
+
+        textarea {
+            height: 100px;
+        }
+
         .submit-btn {
             width: 100%;
-            padding: 15px;
-            background-color: #4caf50;
-            color: #fff;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Flatpickr カスタマイズ用 */
+        .flatpickr-calendar {
+            font-family: 'EB Garamond', serif;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            font-size: 20px; /* フォントサイズを大きく */
+            max-width: 100%;
+        }
+
+        .flatpickr-day {
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 20px; /* 日付フォントサイズを大きく */
+            padding: 12px; /* 日付の大きさを拡大 */
+        }
+
+        .flatpickr-day:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .flatpickr-day.selected {
+            background-color: #45a049;
+            color: white;
+        }
+
+        /* カレンダー全体を中央に表示するスタイル */
+        .flatpickr-calendar.open {
+            width: 100%;
+            max-width: 600px; /* カレンダーの最大幅 */
+            margin: 0 auto;
+        }
+
+        /* カレンダーの月移動ボタンも大きく */
+        .flatpickr-months .flatpickr-prev-month, 
+        .flatpickr-months .flatpickr-next-month {
+            font-size: 24px;
+            padding: 10px;
+        }
+
+        .flatpickr-monthDropdown-months {
+            font-size: 22px;
+        }
+
+        .flatpickr-weekdays {
             font-size: 18px;
         }
-        .submit-btn:hover {
-            background-color: #388e3c;
-            transform: translateY(-2px);
-        }
-        .leaf {
-            position: absolute;
-            top: -100px;
-            width: 30px;
-            height: auto;
-            opacity: 0;
-            z-index: 0;
-            animation: fall 5s linear infinite;
-        }
-        .leaf:nth-child(2) {
-            left: 20%;
-            animation-duration: 6s;
-            animation-delay: 1s;
-        }
-        .leaf:nth-child(3) {
-            left: 40%;
-            animation-duration: 4s;
-            animation-delay: 2s;
-        }
-        .leaf:nth-child(4) {
-            left: 60%;
-            animation-duration: 7s;
-            animation-delay: 3s;
-        }
-        .leaf:nth-child(5) {
-            left: 80%;
-            animation-duration: 5s;
-            animation-delay: 4s;
-        }
 
+        .flatpickr-weekday {
+            padding: 10px;
+        }
 
     </style>
+
+    <!-- FlatpickrのCSSファイル -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 
-    <div class="reservation-form">
-        <h2>予約フォーム</h2>
-        <div class="form-group">
-            <label for="name">名前:</label>
-            <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-            <label for="email">メールアドレス:</label>
-            <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-            <label for="date">予約日:</label>
-            <input type="date" id="date" name="date" required>
-        </div>
-        <div class="form-group">
-            <label for="time">時間:</label>
-            <select id="time" name="time" required>
-                <option value="10:00">10:00</option>
-                <option value="12:00">12:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-            </select>
-        </div>
-        <button class="submit-btn" onclick="submitReservation()">予約する</button>
-    </div>
+    <h1>竹のキャンプ場 予約フォーム</h1>
 
-    <!-- マウスを追従するエフェクト要素 -->
-    <div class="cursor"></div>
+    <form id="reservationForm">
+        <label for="name">お名前</label>
+        <input type="text" id="name" name="name" required>
 
-    <img src="bomboo-leaf.png" alt="竹の葉" class="leaf">
-    <img src="bomboo-leaf.png" alt="竹の葉" class="leaf">
-    <img src="bomboo-leaf.png" alt="竹の葉" class="leaf">
-    <img src="bomboo-leaf.png" alt="竹の葉" class="leaf">
-    <img src="bomboo-leaf.png" alt="竹の葉" class="leaf">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" required>
 
+        <label for="date">宿泊希望日</label>
+        <input type="text" id="date" name="date" required>
+
+        <label for="guests">人数</label>
+        <select id="guests" name="guests" required>
+            <option value="1">1名</option>
+            <option value="2">2名</option>
+            <option value="3">3名</option>
+            <option value="4">4名</option>
+            <option value="5">5名以上</option>
+        </select>
+
+        <label for="message">特別なリクエスト</label>
+        <textarea id="message" name="message" placeholder="何かご要望があればご記入ください"></textarea>
+
+        <button type="button" class="submit-btn" onclick="submitReservation()">予約を送信する</button>
+    </form>
+
+    <a href="index.html" class="back-link">戻る</a>
+
+    <!-- FlatpickrライブラリのJSファイル -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
+    <!-- FirebaseとFirestoreを利用するスクリプト -->
     <script type="module">
         // Firebase SDKのインポート
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
@@ -168,15 +193,17 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const date = document.getElementById('date').value;
-            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            const message = document.getElementById('message').value;
 
-            if (name && email && date && time) {
+            if (name && email && date && guests) {
                 try {
                     const docRef = await addDoc(collection(db, "reservations"), {
                         name: name,
                         email: email,
                         date: date,
-                        time: time
+                        guests: guests,
+                        message: message
                     });
                     alert("予約が正常に保存されました！Document ID: " + docRef.id);
                 } catch (e) {
@@ -188,14 +215,24 @@
             }
         };
 
-        // マウスを追従するエフェクト
-        const cursor = document.querySelector('.cursor');
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
+        // Flatpickrの初期化
+        flatpickr("#date", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+            maxDate: new Date().fp_incr(180), // 180日後まで選択可能
+            locale: {
+                firstDayOfWeek: 1, // カレンダーの週の開始日を月曜日に設定
+                weekdays: {
+                    shorthand: ['日', '月', '火', '水', '木', '金', '土'],
+                    longhand: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
+                },
+                months: {
+                    shorthand: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                    longhand: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+                }
+            }
         });
     </script>
 
 </body>
-
 </html>
